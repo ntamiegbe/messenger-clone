@@ -1,0 +1,12 @@
+Primary Color:
+Dark Blue: #132B43 (Main color for headers, buttons, and primary elements)
+
+Secondary Colors:
+Light Gray: #CCCCCC (Background color for content sections)
+White: #FFFFFF (Text color and secondary background color)
+Light Blue: #3E8BC9 (Accent color for active elements)
+
+Additional Colors:
+Dark Gray: #333333 (Text color for headings and body text)
+Lighter Blue: #5896D6 (Hover color for buttons and interactive elements)
+Darker Blue: #0D1F2E (Darker shade of blue for borders and dividers)
