@@ -6,6 +6,7 @@ import Input from "../inputs/Input"
 import Button from "../Button"
 import AuthSocialButton from "./AuthSocialButton"
 import { BsGithub, BsGoogle } from 'react-icons/bs'
+import axios from "axios"
 
 type Props = {}
 
@@ -42,6 +43,7 @@ const AuthForm = (props: Props) => {
 
         if (variant === "REGISTER") {
             //Register logic
+            axios.post('../../api/register', data)
         }
 
         if (variant === "LOGIN") {
@@ -59,7 +61,7 @@ const AuthForm = (props: Props) => {
             <div className="px-4 bg-darkerBlue py-8 shadow sm:rounded-lg sm:px-10">
                 <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
                     {variant === "REGISTER" && (
-                        <Input id="fullName" errors={errors} label="Full Name" register={register} disabled={isLoading} />
+                        <Input id="name" errors={errors} label="Full Name" register={register} disabled={isLoading} />
                     )}
                     <Input id="email" errors={errors} label="Email address" type="email" register={register} disabled={isLoading} />
                     <Input id="password" errors={errors} label="Password" type="password" register={register} disabled={isLoading} />
