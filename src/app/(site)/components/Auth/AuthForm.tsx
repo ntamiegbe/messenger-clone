@@ -13,7 +13,7 @@ type Variant = "LOGIN" | "REGISTER"
 
 const AuthForm = (props: Props) => {
     const [variant, setVariant] = useState<Variant>("LOGIN")
-    const [isLoading, setIsLoading] = useState<Boolean>(false)
+    const [isLoading, setIsLoading] = useState(false)
 
     const toggleVariant = useCallback(() => {
         if (variant === "LOGIN") {
