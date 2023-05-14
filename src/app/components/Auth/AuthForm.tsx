@@ -65,6 +65,7 @@ const AuthForm = (props: Props) => {
                     )}
                     <Input id="email" errors={errors} label="Email address" type="email" register={register} disabled={isLoading} />
                     <Input id="password" errors={errors} label="Password" type="password" register={register} disabled={isLoading} />
+                    
                     <div className="">
                         <Button
                             fullWidth
