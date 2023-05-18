@@ -56,9 +56,9 @@ const Input: React.FC<InputProps> = ({
                         className="text-gray-500 absolute right-3 top-1/2 -translate-y-1/2"
                     >
                         {showPassword ? (
-                            <AiFillEyeInvisible className="text-lighterBlue text-xl" />
+                            <AiFillEyeInvisible className="text-lighterBlue text-2xl" />
                         ) : (
-                            <AiFillEye className="text-lighterBlue text-xl" />
+                            <AiFillEye className="text-lighterBlue text-2xl" />
                         )}
                     </button>
                 )}

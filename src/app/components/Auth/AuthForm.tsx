@@ -1,59 +1,93 @@
-'use client'
+'use client';
 
-import { useCallback, useState } from "react"
-import { useForm, FieldValues, SubmitHandler } from "react-hook-form"
-import Input from "../inputs/Input"
-import Button from "../Button"
-import AuthSocialButton from "./AuthSocialButton"
-import { BsGithub, BsGoogle } from 'react-icons/bs'
-import axios from "axios"
+import axios from "axios";
+import { signIn } from 'next-auth/react';
+import { useCallback, useState } from 'react';
+import { BsGithub, BsGoogle } from 'react-icons/bs';
+import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 
-type Props = {}
+import Input from "@/app/components/inputs/Input";
+import AuthSocialButton from './AuthSocialButton';
+import Button from "@/app/components/Button";
+import { toast } from "react-hot-toast";
+import { error } from "console";
 
-type Variant = "LOGIN" | "REGISTER"
+type Variant = 'LOGIN' | 'REGISTER';
 
-const AuthForm = (props: Props) => {
-    const [variant, setVariant] = useState<Variant>("LOGIN")
-    const [isLoading, setIsLoading] = useState(false)
+const AuthForm = () => {
+    const [variant, setVariant] = useState<Variant>('LOGIN');
+    const [isLoading, setIsLoading] = useState(false);
 
     const toggleVariant = useCallback(() => {
-        if (variant === "LOGIN") {
-            setVariant("REGISTER")
+        if (variant === 'LOGIN') {
+            setVariant('REGISTER');
         } else {
-            setVariant("LOGIN")
+            setVariant('LOGIN');
         }
-    }, [variant])
+    }, [variant]);
 
     const {
         register,
         handleSubmit,
         formState: {
-            errors
+            errors,
         }
     } = useForm<FieldValues>({
         defaultValues: {
-            fullName: '',
+            name: '',
             email: '',
-            password: '',
+            password: ''
         }
-    })
+    });
 
     const onSubmit: SubmitHandler<FieldValues> = (data) => {
-        setIsLoading(true)
+        setIsLoading(true);
 
-        if (variant === "REGISTER") {
-            //Register logic
-            axios.post('../../api/register', data)
+        if (variant === 'REGISTER') {
+            axios.post('/api/register', data)
+                .catch(() => toast.error('Something went wrong!'))
+                .finally(() => setIsLoading(false))
         }
 
-        if (variant === "LOGIN") {
-            //Login logic
+        if (variant === 'LOGIN') {
+            signIn('credentials', {
+                ...JSON.parse(JSON.stringify(data)),
+                redirect: false
+            })
+                .then((callback) => {
+                    if (callback?.error) {
+                        toast.error('Invalid credentials!');
+                    }
+
+                    if (callback?.ok && !callback?.error) {
+                        toast.success('Successful');
+                        // Redirect or perform any other action after successful login
+                    }
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
+                .finally(() => {
+                    setIsLoading(false)
+                    console.log(data)
+                });
         }
     }
 
     const socialAction = (action: string) => {
-        setIsLoading(true)
+        setIsLoading(true);
 
+        signIn(action, { redirect: false })
+            .then((callback) => {
+                if (callback?.error) {
+                    toast.error('Invalid credentials!');
+                }
+
+                if (callback?.ok) {
+                    toast.success('Successful')
+                }
+            })
+            .finally(() => setIsLoading(false));
     }
 
     return (
@@ -65,8 +99,8 @@ const AuthForm = (props: Props) => {
                     )}
                     <Input id="email" errors={errors} label="Email address" type="email" register={register} disabled={isLoading} />
                     <Input id="password" errors={errors} label="Password" type="password" register={register} disabled={isLoading} />
-                    
-                    <div className="">
+
+                    <div>
                         <Button
                             fullWidth
                             disabled={isLoading}
@@ -88,7 +122,7 @@ const AuthForm = (props: Props) => {
                     </div>
 
                     <div className="mt-6 flex gap-2">
-                        <AuthSocialButton icon={BsGithub} onClick={() => socialAction('github')}/>
+                        <AuthSocialButton icon={BsGithub} onClick={() => socialAction("github")} />
                         <AuthSocialButton icon={BsGoogle} onClick={() => socialAction('google')} />
                     </div>
                 </div>
@@ -98,11 +132,11 @@ const AuthForm = (props: Props) => {
                         {variant === "LOGIN" ? "New to messenger?" : "Already have an account?"}
                     </div>
                     <div onClick={toggleVariant} className="underline cursor-pointer text-lighterBlue">
-                        {variant === "LOGIN" ? "Sign up" : "Log in"}
+                        {variant === "LOGIN" ? "Create an account" : "Log in"}
                     </div>
                 </div>
-            </div>
-        </div>
+            </div >
+        </div >
     )
 }
 

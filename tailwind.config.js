@@ -9,10 +9,10 @@ module.exports = {
     extend: {
       colors: {
         primaryBg: '#01020f', // Dark Blue
-        lightGray: '#333333', // Dark Gray
+        darkGray: '#333333', // Dark Gray
         white: '#FFFFFF', // White
         lightBlue: '#3E8BC9', // Light Blue
-        darkGray: '#CCCCCC', // Light Gray
+        lightGray: '#CCCCCC', // Light Gray
         lighterBlue: '#5896D6', // Lighter Blue
         darkerBlue: '#0D1F2E', // Darker Blue
       },
