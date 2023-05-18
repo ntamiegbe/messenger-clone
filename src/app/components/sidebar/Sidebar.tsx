@@ -1,3 +1,4 @@
+import MobileFooter from "../footer/MobileFooter"
 import DesktopSidebar from "./DesktopSidebar"
 
 async function Sidebar({ children }: {
@@ -6,6 +7,7 @@ async function Sidebar({ children }: {
     return (
         <div className="h-full">
             <DesktopSidebar />
+            <MobileFooter />
             <main className="lg:pl-20 h-full">
                 {children}
             </main>

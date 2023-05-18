@@ -24,6 +24,7 @@ const useRoutes = () => {
         }
     ], [pathname, conversationId])
 
+    return routes
 }
 
 export default useRoutes
