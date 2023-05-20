@@ -13,7 +13,7 @@ const AuthSocialButton:React.FC<AuthSocialButtonProps> = ({
         <button
             type="button"
             onClick={onClick}
-            className="inline-flex w-full py-2 justify-center rounded-md text-darkGray shadow-sm ring-1 ring-inset ring-darkGray hover:bg-lightBlue focus:outline-offset-0"
+            className="inline-flex w-full py-2 justify-center rounded-md text-lightGray shadow-sm ring-1 ring-inset ring-lightGray hover:bg-lightBlue focus:outline-offset-0"
         >
             <Icon />
         </button>

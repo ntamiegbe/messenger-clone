@@ -33,7 +33,7 @@ const Input: React.FC<InputProps> = ({
 
     return (
         <div>
-            <label htmlFor={id} className="block text-sm font-medium leading-6 text-darkGray">
+            <label htmlFor={id} className="block text-sm font-medium leading-6 text-lightGray">
                 {label}
             </label>
             <div className="mt-2 flex items-center justify-between relative">
