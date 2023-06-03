@@ -3,7 +3,7 @@
 import axios from "axios";
 import { signIn, useSession } from 'next-auth/react';
 import { useCallback, useEffect, useState } from 'react';
-import { BsGithub, BsGoogle  } from 'react-icons/bs';
+import { BsGithub, BsGoogle } from 'react-icons/bs';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { useRouter } from "next/navigation";
 
@@ -50,24 +50,24 @@ const AuthForm = () => {
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setIsLoading(true);
-  
+
     if (variant === 'REGISTER') {
       axios.post('/api/register', data)
-      .then(() => signIn('credentials', {
-        ...data,
-        redirect: false,
-      }))
-      .then((callback) => {
-        if (callback?.error) {
-          toast.error('Invalid credentials!');
-        }
+        .then(() => signIn('credentials', {
+          ...data,
+          redirect: false,
+        }))
+        .then((callback) => {
+          if (callback?.error) {
+            toast.error('Invalid credentials!');
+          }
 
-        if (callback?.ok) {
-          router.push('/conversations')
-        }
-      })
-      .catch(() => toast.error('Something went wrong!'))
-      .finally(() => setIsLoading(false))
+          if (callback?.ok) {
+            router.push('/conversations')
+          }
+        })
+        .catch(() => toast.error('Something went wrong!'))
+        .finally(() => setIsLoading(false))
     }
 
     if (variant === 'LOGIN') {
@@ -75,16 +75,16 @@ const AuthForm = () => {
         ...data,
         redirect: false
       })
-      .then((callback) => {
-        if (callback?.error) {
-          toast.error('Invalid credentials!');
-        }
+        .then((callback) => {
+          if (callback?.error) {
+            toast.error('Invalid credentials!');
+          }
 
-        if (callback?.ok) {
-          router.push('/conversations')
-        }
-      })
-      .finally(() => setIsLoading(false))
+          if (callback?.ok) {
+            router.push('/conversations')
+          }
+        })
+        .finally(() => setIsLoading(false))
     }
   }
 
@@ -102,11 +102,11 @@ const AuthForm = () => {
         }
       })
       .finally(() => setIsLoading(false));
-  } 
+  }
 
-  return ( 
-    <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md mx-5 lg:mx-0">
-      <div 
+  return (
+    <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+      <div
         className="
         bg-secondary-bg
           px-6
@@ -114,10 +114,12 @@ const AuthForm = () => {
           shadow
           rounded-lg
           sm:px-10
+          mx-5 
+          lg:mx-0
         "
       >
-        <form 
-          className="space-y-6" 
+        <form
+          className="space-y-6"
           onSubmit={handleSubmit(onSubmit)}
         >
           {variant === 'REGISTER' && (
@@ -126,26 +128,26 @@ const AuthForm = () => {
               register={register}
               errors={errors}
               required
-              id="name" 
+              id="name"
               label="Name"
             />
           )}
-          <Input 
+          <Input
             disabled={isLoading}
             register={register}
             errors={errors}
             required
-            id="email" 
-            label="Email address" 
+            id="email"
+            label="Email address"
             type="email"
           />
-          <Input 
+          <Input
             disabled={isLoading}
             register={register}
             errors={errors}
             required
-            id="password" 
-            label="Password" 
+            id="password"
+            label="Password"
             type="password"
           />
           <div>
@@ -157,7 +159,7 @@ const AuthForm = () => {
 
         <div className="mt-6">
           <div className="relative">
-            <div 
+            <div
               className="
                 absolute 
                 inset-0 
@@ -175,17 +177,17 @@ const AuthForm = () => {
           </div>
 
           <div className="mt-6 flex gap-2">
-            <AuthSocialButton 
-              icon={BsGithub} 
-              onClick={() => socialAction('github')} 
+            <AuthSocialButton
+              icon={BsGithub}
+              onClick={() => socialAction('github')}
             />
-            <AuthSocialButton 
-              icon={BsGoogle} 
-              onClick={() => socialAction('google')} 
+            <AuthSocialButton
+              icon={BsGoogle}
+              onClick={() => socialAction('google')}
             />
           </div>
         </div>
-        <div 
+        <div
           className="
             flex 
             gap-2 
@@ -197,10 +199,10 @@ const AuthForm = () => {
           "
         >
           <div>
-            {variant === 'LOGIN' ? 'New to Messenger?' : 'Already have an account?'} 
+            {variant === 'LOGIN' ? 'New to Messenger?' : 'Already have an account?'}
           </div>
-          <div 
-            onClick={toggleVariant} 
+          <div
+            onClick={toggleVariant}
             className="underline cursor-pointer text-accent-blue hover:text-accent-blue-hover"
           >
             {variant === 'LOGIN' ? 'Create an account' : 'Login'}
@@ -210,5 +212,5 @@ const AuthForm = () => {
     </div>
   );
 }
- 
+
 export default AuthForm;
