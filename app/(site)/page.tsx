@@ -13,6 +13,7 @@ const Auth = () => {
         sm:px-6 
         lg:px-8 
         bg-primary-bg
+        
       "
     >
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
